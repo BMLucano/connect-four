@@ -27,7 +27,6 @@ function makeBoard() {
       board[y][x] = null;
     }
   }
-  return board;
 }
 
 
@@ -74,14 +73,29 @@ function makeHtmlBoard() {
  *    (return null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
-  return 5;
+  for (let y = HEIGHT - 1; y >= 0; y--){
+    if (!board[y][x]){
+      return y;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  const piece = document.createElement("div");
+  piece.classList.add('piece', `p${currPlayer}`);
+
+    // what is preferred here? classList or className?
+
+  const cell = document.getElementById(`c-${y}-${x}`);
+  cell.append(piece);
+
+
+
+
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
