@@ -23,6 +23,7 @@ function makeBoard() {
 
   for(let y = 0; y < HEIGHT; y++){
     board[y] = [];
+
     for(let x = 0; x < WIDTH; x++){
       board[y][x] = null;
     }
@@ -34,7 +35,6 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   const htmlBoard = document.getElementById("board");
-
 
   //  create top row (where user clicks to make their move)
   const top = document.createElement("tr");
@@ -54,7 +54,7 @@ function makeHtmlBoard() {
   // uses WIDTH to create table cells for each row
   for (let y = 0; y < HEIGHT; y++) {
     //  Create a table row element and assign to a "row" variable
-      const row = document.createElement('tr')
+      const row = document.createElement('tr');
     for (let x = 0; x < WIDTH; x++) {
       // Create a table cell element and assign to a "cell" variable
       const cell = document.createElement('td');
@@ -65,7 +65,7 @@ function makeHtmlBoard() {
       row.append(cell);
     }
     //  append the row to the html board
-    htmlBoard.append(row)
+    htmlBoard.append(row);
   }
 }
 
@@ -84,7 +84,6 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
   const piece = document.createElement("div");
   piece.classList.add('piece', `p${currPlayer}`);
 
@@ -92,10 +91,6 @@ function placeInTable(y, x) {
 
   const cell = document.getElementById(`c-${y}-${x}`);
   cell.append(piece);
-
-
-
-
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -112,7 +107,7 @@ function checkForWin() {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
     return cells.every(([y, x]) =>
-    y < HEIGHT && y >= 0 && x < WIDTH && x >= 0 && board[y][x]=== currPlayer)
+    y < HEIGHT && y >= 0 && x < WIDTH && x >= 0 && board[y][x]=== currPlayer);
 
   }
 
@@ -154,12 +149,13 @@ function handleClick(evt) {
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
+
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update global `board` variable with new piece
+
   placeInTable(y, x);
   board[y][x] = currPlayer;
 
@@ -169,12 +165,13 @@ function handleClick(evt) {
   }
 
   // check for tie: if top row is filled, board is filled
-  // TODO: check if all cells in board are filled; if so, call endGame
-  if(board.every(row => row.every(cell))){
-    return endGame('It"s a tie!')
+
+  if (board.every(row => row.every(cell => cell))){
+    return endGame('It"s a tie!');
   }
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** Start game. */
