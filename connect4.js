@@ -111,6 +111,8 @@ function checkForWin() {
 
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
+    return cells.every(([y, x]) =>
+    y < HEIGHT && y >= 0 && x < WIDTH && x >= 0 && board[y][x]=== currPlayer)
 
   }
 
@@ -125,9 +127,9 @@ function checkForWin() {
       // [ [y, x], [y, x], [y, x], [y, x] ]
 
       let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      let vert;
-      let diagDL;
-      let diagDR;
+      let vert = [[y, x], [y + 1, x],[y + 2, x], [y + 3, x]];
+      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
 
       // find winner (only checking each win-possibility as needed)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
@@ -159,6 +161,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update global `board` variable with new piece
   placeInTable(y, x);
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -167,7 +170,9 @@ function handleClick(evt) {
 
   // check for tie: if top row is filled, board is filled
   // TODO: check if all cells in board are filled; if so, call endGame
-
+  if(board.every(row => row.every(cell))){
+    return endGame('It"s a tie!')
+  }
   // switch players
   // TODO: switch currPlayer 1 <-> 2
 }
