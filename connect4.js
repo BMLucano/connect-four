@@ -81,6 +81,9 @@ function findSpotForCol(x) {
   return null;
 }
 
+// if you know exaclty what you are looking for, change line 77 to === null.
+// this is more clear
+
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
@@ -107,7 +110,11 @@ function checkForWin() {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
     return cells.every(([y, x]) =>
-    y < HEIGHT && y >= 0 && x < WIDTH && x >= 0 && board[y][x]=== currPlayer);
+    y < HEIGHT &&
+    y >= 0 &&
+    x < WIDTH &&
+    x >= 0 &&
+    board[y][x]=== currPlayer);
 
   }
 
@@ -124,7 +131,7 @@ function checkForWin() {
       let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
       let vert = [[y, x], [y + 1, x],[y + 2, x], [y + 3, x]];
       let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
-      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      let diagDR = [[y + 0, x + 0], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
 
       // find winner (only checking each win-possibility as needed)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
@@ -169,6 +176,9 @@ function handleClick(evt) {
   if (board.every(row => row.every(cell => cell))){
     return endGame('It"s a tie!');
   }
+
+  // since we are relying on truthy-ness, it might be better to set !== null
+  // we could have just checked the top row 
   // switch players
 
   currPlayer = currPlayer === 1 ? 2 : 1;

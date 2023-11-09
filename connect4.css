@@ -22,8 +22,9 @@
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 
 /* column-top is table row of clickable areas for each column */
+/* keep this with the correct ids */
 
-.p1{
+.piece.p1{
   background-color: red;
 }
 
